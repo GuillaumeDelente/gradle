@@ -35,9 +35,11 @@ class MultiLineBuildProgressAreaTest extends Specification {
     def progressArea = new MultiLineBuildProgressArea(4)
 
     def setup() {
-        newLineListener.beforeNewLineWritten(_) >> {
+        newLineListener.beforeNewLineWritten(_, _) >> {
             progressArea.newLineAdjustment();
         }
+
+        progressArea.visible = true
     }
 
     def "scrolls the console with new lines when redrawing an empty work in progress area"() {
@@ -52,7 +54,6 @@ class MultiLineBuildProgressAreaTest extends Specification {
         }
     }
 
-    @Ignore
     def "redraw the work in progress area"() {
         given:
         fillArea()
@@ -70,7 +71,6 @@ class MultiLineBuildProgressAreaTest extends Specification {
         }
     }
 
-    @Ignore
     def "execute the minimum ansi action when updating a label in the work in progress area between redraw"() {
         given:
         fillArea()
@@ -96,7 +96,6 @@ class MultiLineBuildProgressAreaTest extends Specification {
         }
     }
 
-    @Ignore
     def "redraws the entire work in progress area when scrolling between redraw"() {
         given:
         fillArea()
@@ -121,7 +120,6 @@ class MultiLineBuildProgressAreaTest extends Specification {
         }
     }
 
-    @Ignore
     def "clears the end of the line when the area is scrolled and a label is updated with a smaller text between redraw"() {
         given:
         fillArea()
@@ -164,7 +162,6 @@ class MultiLineBuildProgressAreaTest extends Specification {
         0 * ansi._
     }
 
-    @Ignore
     def "doesn't scroll the area when visibility is set to false"() {
         given:
         fillArea()
